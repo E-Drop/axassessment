@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { gnomeActions } from './actions';
 import { connect } from 'react-redux';
-
+import { Link } from "react-router-dom";
 interface AppProps {
   fillGnomeData: any,
   gnomes,
@@ -16,6 +16,7 @@ const App = (props: AppProps) => {
 
   return (
     <div className="App">
+     <Link to="/gnome/1">Netflix</Link>
       {gnomes && gnomes.map(x=>x.name)}
     </div>
   );

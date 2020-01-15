@@ -9,9 +9,10 @@ export type AxiosMiddleWareAction = {
        success: string,
        fail: string,
      },
-     url: string,
-     method: 'get' | 'put' | 'post' | 'delete',
-   },
+     url?: string,
+     method?: 'get' | 'put' | 'post' | 'delete',
+   }
+   data?: any,
 }
 
 const AxiosMiddleware: Middleware<Dispatch> = (store: MiddlewareAPI) => (
