@@ -1,4 +1,5 @@
 import styled from  'styled-components/macro';
+
 interface StyledProps {
   image: string
 }

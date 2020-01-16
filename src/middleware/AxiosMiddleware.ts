@@ -3,25 +3,25 @@ import axios from 'axios';
 
 
 export type AxiosMiddleWareAction = {
-   fetch: {
-     actionTypes?: {
-       request: string,
-       success: string,
-       fail: string,
-     },
-     url?: string,
-     method?: 'get' | 'put' | 'post' | 'delete',
-   }
-   data?: any,
+  fetch: {
+    actionTypes?: {
+      request: string,
+      success: string,
+      fail: string,
+    },
+    url?: string,
+    method?: 'get' | 'put' | 'post' | 'delete',
+  }
+  data?: any,
 }
 
 const AxiosMiddleware: Middleware<Dispatch> = (store: MiddlewareAPI) => (
   next: Function,
 ) => async (action: AnyAction | AxiosMiddleWareAction) => {
 
-    if(!action.fetch){
-      return next(action);
-    } else {
+  if (!action.fetch) {
+    return next(action);
+  } else {
 
     const {
       actionTypes: { request, success, fail },
@@ -35,10 +35,10 @@ const AxiosMiddleware: Middleware<Dispatch> = (store: MiddlewareAPI) => (
     // axios server (success or fail)
     try {
       const data = await axios
-      .request({
-        method,
-        url,
-      })
+        .request({
+          method,
+          url,
+        })
       store.dispatch({ type: success, payload: data.data })
       return data;
 
