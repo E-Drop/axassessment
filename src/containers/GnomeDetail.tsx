@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { connect } from 'react-redux';
-
-import { filteredGnomeActions } from '../actions';
 
 import {
   GnomeDetailContainer,
@@ -15,43 +13,55 @@ import {
 } from './GnomeDetailStyle'
 
 interface GnomeDetailProps {
-  gnome,
-  saveGnome,
+  gnomes
 };
 
 const GnomeDetail = (props: GnomeDetailProps) => {
-  const { gnome, saveGnome } = props;
+  const { gnomes } = props;
   const { id } = useParams();
+  const [selectedGnome, setSelectedGnome] = useState();
 
   useEffect(() => {
-    saveGnome(id);
-  }, []);
+    const getData = JSON.parse(localStorage.getItem("selectedGnome"));
+    if (getData && getData.id === parseInt(id)) {
+      setSelectedGnome(getData)
+    } else if (gnomes) {
+      const gnome = gnomes[gnomes.map((x) => { return x.id; }).indexOf(parseInt(id))];
+      setSelectedGnome(gnome);
+      localStorage.setItem("selectedGnome", JSON.stringify(gnome));
+    }
+  }, [gnomes, id]);
 
   return (
     <GnomeDetailContainer>
       <GnomeDetailContent>
-        {gnome &&
+        {selectedGnome &&
           <>
-            <Thumbnail image={gnome[0].thumbnail} />
-            <h2>{gnome[0].name}</h2>
+            <Thumbnail image={selectedGnome.thumbnail} />
+            <h2>{selectedGnome.name}</h2>
             <hr />
             <GnomeMainInformationContainer>
               <div>
                 <h4>Who</h4>
-                <KeyValueDisplay><span>Age: </span><span>{gnome[0].age}</span></KeyValueDisplay>
-                <KeyValueDisplay><span>Weight: </span><span>{gnome[0].weight}</span></KeyValueDisplay>
-                <KeyValueDisplay><span>Height: </span><span>{gnome[0].height}</span></KeyValueDisplay>
-                <KeyValueDisplay><span>Hair color: </span><HairColor color={gnome[0].hair_color} /></KeyValueDisplay>
+                <KeyValueDisplay><span>Age: </span><span>{selectedGnome.age}</span></KeyValueDisplay>
+                <KeyValueDisplay><span>Weight: </span><span>{selectedGnome.weight}</span></KeyValueDisplay>
+                <KeyValueDisplay><span>Height: </span><span>{selectedGnome.height}</span></KeyValueDisplay>
+                <KeyValueDisplay><span>Hair color: </span><HairColor color={selectedGnome.hair_color} /></KeyValueDisplay>
               </div>
-              <div>
-                <h4>Friends</h4>
-                {gnome[0].friends.map((x, k) => <p key={k}>{x}</p>)}
-              </div>
+
+              {selectedGnome.friends &&
+                <div>
+                  <h4>Friends</h4>
+                  {selectedGnome.friends.map((x, k) => <p key={k}>{x}</p>)}
+                </div>}
             </GnomeMainInformationContainer>
-            <h4>Jobs</h4>
-            <GnomeWorksWrapper>
-              {gnome[0].professions.map((x, k) => <span key={k}>{x}</span>)}
-            </GnomeWorksWrapper>
+            {selectedGnome.professions &&
+              <>
+                <h4>Jobs</h4>
+                <GnomeWorksWrapper>
+                  {selectedGnome.professions.map((x, k) => <span key={k}>{x}</span>)}
+                </GnomeWorksWrapper>
+              </>}
           </>}
       </GnomeDetailContent>
     </GnomeDetailContainer>
@@ -59,13 +69,10 @@ const GnomeDetail = (props: GnomeDetailProps) => {
 }
 
 const mapStateToProps = (state) => ({
-  gnome: state.filteredGnomes.selected,
-});
-const mapDispatchToProps = dispatch => ({
-  saveGnome: data => dispatch(filteredGnomeActions.saveGnome(data)),
+  gnomes: state.gnomes.data.Brastlewark,
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(GnomeDetail)

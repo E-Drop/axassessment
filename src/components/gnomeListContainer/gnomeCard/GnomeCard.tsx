@@ -18,7 +18,13 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '1px 2px 5px black',
+    boxShadow: '0px 1px 5px black',
+    transition:  'transform .3s',
+    transform: 'scaleX(1)',
+    '&:hover': {
+      transform: 'scaleX(1.01)',
+      boxShadow: '0px 0px 10px rgba(0,0,0.5)',
+    }
   },
 });
 

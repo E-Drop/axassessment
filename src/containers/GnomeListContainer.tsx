@@ -39,7 +39,7 @@ export const GnomeListContainer = (props: GnomeListContainerProps) => {
 
   useEffect(() => {
     fillFilteredGnome(gnomes);
-  }, [gnomes]);
+  }, [gnomes, fillFilteredGnome]);
 
   useEffect(() => {
     filteredGnomes.Brastlewark && current !== 1 && setGnomeList(filteredGnomes.Brastlewark.slice(current * 10, current * 10 + 10));

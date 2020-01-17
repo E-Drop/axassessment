@@ -19,13 +19,6 @@ export const filteredGnomes = (state = initialState, action) => {
         Brastlewark: state.Brastlewark.filter(x => x.name.includes(data))
       };
     }
-    case 'SET_SELECTED_GNOME': {
-      const { data = {} } = action;
-      return {
-        ...state,
-        selected: state.Brastlewark.filter(x => x.id == data),
-      };
-    }
     default:
       return state;
   }

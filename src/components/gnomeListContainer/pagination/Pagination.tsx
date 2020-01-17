@@ -18,7 +18,7 @@ const Pagination = (props: PaginationProps) => {
 
   useEffect(() => {
     filteredGnomes.Brastlewark && setTotalPages(Math.floor(filteredGnomes.Brastlewark.length / 10));
-  }, [filteredGnomes]);
+  }, [filteredGnomes, setTotalPages]);
 
   const GoToPage = (where) => {
     goToPage(where);

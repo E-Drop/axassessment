@@ -8,16 +8,16 @@ Redux.
 Redux thunks to send asyncronous actions using, custom middleware to handle axios request response in redux.
 Testing Redux actions and reducers.
 Lodash.
+Use of localStorage to handle the re-render in the GnomeDetail Page.
 Pagination build from scratch, without external libraries.
 
-I use all this tecnologies because in my opinion are common tools in the work (Redux), and must be in every tecnical assessment no matter how simple it is.
+I use all this tecnologies because in my opinion they are common tools in the work, and must be in every tecnical assessment no matter how simple it is.
 
 ## Things that i like to do if I have more time:
 
 Add more Test to guarantee quality.
 Adaptative design in the full App.
 Development of an API REST using Mongo, Express and Node to save all the data.
-Add localStorage to handle the re-render without info in the GnomeDetail Page.
 
 ## Available Scripts
 

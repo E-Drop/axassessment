@@ -8,7 +8,3 @@ export const fillFilteredGnome = data => ({
   data
 });
 
-export const saveGnome = data => ({
-  type: 'SET_SELECTED_GNOME',
-  data
-});
