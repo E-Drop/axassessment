@@ -8,7 +8,7 @@ The project was simple really doesn't need a bunch of tecnologies used in, some 
 - Redux thunks to send asyncronous actions using, custom middleware to handle axios request response in redux.
 - Testing Redux actions and reducers.
 - Lodash.
-- Use of localStorage to handle the re-render in the GnomeDetail Page.
+- Use of localStorage to handle the re-render in the GnomeDetail Page (Usually you'll have a Db to trigger query that returns Gnome).
 - Pagination build from scratch, without external libraries.
 
 I use all this tecnologies because in my opinion they are common tools in the React application development, and must be in every tecnical assessment no matter how simple it is.
