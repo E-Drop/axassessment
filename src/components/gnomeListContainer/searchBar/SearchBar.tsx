@@ -10,7 +10,6 @@ import { paginationActions } from '../../../actions';
 interface searchBarProps {
   gnomes,
   fillFilteredGnome,
-  filterGnomes,
   goToPage,
 }
 
@@ -23,14 +22,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const SearchBar = (props: searchBarProps) => {
-  const { gnomes, fillFilteredGnome, filterGnomes, goToPage } = props;
+  const { gnomes, fillFilteredGnome, goToPage } = props;
   const classes = useStyles('');
   const [userQuery, setUserQuery] = useState("");
 
-  const delayedQuery = useRef(_.debounce(q => searchGnomes(q), 500)).current;
+  const delayedQuery = useRef(_.debounce((q,g) => searchGnomes(q,g), 500)).current;
 
-  const searchGnomes = (query) => {
-    filterGnomes(query);
+  const searchGnomes = (query, gnomes) => {
+    const filteredGnomes = {Brastlewark: gnomes.Brastlewark.filter(x => x.name.includes(query))};
+    fillFilteredGnome(filteredGnomes);
+    goToPage(1);
   };
 
   const onChange = e => {
@@ -39,8 +40,7 @@ const SearchBar = (props: searchBarProps) => {
       fillFilteredGnome(gnomes);
       goToPage(1);
     } else {
-      delayedQuery(e.target.value);
-      goToPage(1);
+      delayedQuery(e.target.value,gnomes);
     }
   };
 
@@ -57,7 +57,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   fillFilteredGnome: data => dispatch(filteredGnomeActions.fillFilteredGnome(data)),
-  filterGnomes: data => dispatch(filteredGnomeActions.filterGnomes(data)),
   goToPage: data => dispatch(paginationActions.goToPage(data)),
 });
 

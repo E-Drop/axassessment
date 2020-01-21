@@ -14,11 +14,7 @@ export const filteredGnomes = (state = initialState, action) => {
         ...data,
       };
     }
-    case 'FILTER_GNOMES': {
-      return {
-        Brastlewark: state.Brastlewark.filter(x => x.name.includes(data))
-      };
-    }
+   
     default:
       return state;
   }
